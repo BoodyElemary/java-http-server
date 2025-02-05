@@ -1,9 +1,6 @@
 package com.abdelrahman.elemary.httpserver.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
-import  com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.*;
 
 public class Json {
     private static final ObjectMapper myObjectMapper = defaultObjectMapper();
@@ -28,13 +25,18 @@ public class Json {
         return myObjectMapper.valueToTree(obj);
     }
 
-    public static String stringify(){
-            return "";
+    public static String stringify(JsonNode node) throws JsonProcessingException {
+            return generateJson(node,false);
+    }
+    public static String stringifyPretty(JsonNode node) throws JsonProcessingException {
+        return generateJson(node,true);
     }
 
 
-    private static  String generateJson (Object o) throws JsonProcessingException {
+    private static  String generateJson (Object o,boolean pretty) throws JsonProcessingException {
         ObjectWriter objectWriter = myObjectMapper.writer();
+        if (pretty)
+            objectWriter=objectWriter.with(SerializationFeature.INDENT_OUTPUT);
        return objectWriter.writeValueAsString(o);
     }
 }
