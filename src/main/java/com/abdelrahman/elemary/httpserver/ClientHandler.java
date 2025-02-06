@@ -1,15 +1,17 @@
 package com.abdelrahman.elemary.httpserver;
+
 import java.io.*;
 import java.net.Socket;
 
 public class ClientHandler implements Runnable {
     private final Socket socket;
     private final String webRoot;
-    private final ApiController apiController = new ApiController();
+    private final ApiController apiController;
 
-    public ClientHandler(Socket socket, String webRoot) {
+    public ClientHandler(Socket socket, String webRoot, ApiController apiController) {
         this.socket = socket;
         this.webRoot = webRoot;
+        this.apiController = apiController;
     }
 
     @Override
