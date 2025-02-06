@@ -4,15 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a46c6ea-79d8-41d4-abcf-76e3e68a9a72" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/config/HttpConfigurationException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/http.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="9a46c6ea-79d8-41d4-abcf-76e3e68a9a72" name="Changes" comment="REFACTOR: refactor the driver class">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/ClientHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/ResponseBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/HttpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/HttpServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/config/ConfigurationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/config/ConfigurationManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/util/Json.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/util/Json.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/http.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/http.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,15 +97,8 @@
     </task>
     <servers />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/HttpServer.java</url>
-          <line>20</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="REFACTOR: refactor the driver class" />
+    <option name="LAST_COMMIT_MESSAGE" value="REFACTOR: refactor the driver class" />
   </component>
 </project>
