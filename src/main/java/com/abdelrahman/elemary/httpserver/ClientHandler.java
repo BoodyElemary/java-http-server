@@ -53,7 +53,7 @@ public class ClientHandler implements Runnable {
 
         File file = new File(webRoot, requestedFile);
         if (file.exists() && !file.isDirectory()) {
-            String contentType = requestedFile.endsWith(".html") ? "text/html" : "text/plain";
+            String contentType = getContentType(requestedFile);
             byte[] fileContent = new byte[(int) file.length()];
             try (FileInputStream fis = new FileInputStream(file)) {
                 fis.read(fileContent);
@@ -73,4 +73,17 @@ public class ClientHandler implements Runnable {
         }
         outputStream.flush();
     }
+
+    private String getContentType(String fileName) {
+        if (fileName.endsWith(".html")) return "text/html";
+        if (fileName.endsWith(".css")) return "text/css";
+        if (fileName.endsWith(".js")) return "application/javascript";
+        if (fileName.endsWith(".json")) return "application/json";
+        if (fileName.endsWith(".png")) return "image/png";
+        if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")) return "image/jpeg";
+        if (fileName.endsWith(".svg")) return "image/svg+xml";
+        if (fileName.endsWith(".ico")) return "image/x-icon";
+        return "text/plain";
+    }
+
 }
