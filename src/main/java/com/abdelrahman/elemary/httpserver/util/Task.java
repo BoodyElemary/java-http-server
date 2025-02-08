@@ -50,7 +50,7 @@ public class Task {
 
     // Create
     public void createTask() {
-        String query = "INSERT INTO tasks (title, status, due_date) VALUES (?, ?, ?)";
+        String query = "INSERT INTO tasks (title, status, due_date) VALUES (?, CAST(? AS task_status), ?)";
         try (Connection conn = PostgresJDBCConnector.getInstance().connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
@@ -146,5 +146,15 @@ public class Task {
         outputStream.write(responseHeader.getBytes());
         outputStream.write(jsonResponse.getBytes());
         outputStream.flush();
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "dueDate=" + dueDate +
+                ", status='" + status + '\'' +
+                ", title='" + title + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

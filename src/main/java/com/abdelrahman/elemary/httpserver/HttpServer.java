@@ -33,24 +33,38 @@ public class HttpServer {
         // Create a new task
         apiController.registerRoute("POST", "/api/tasks", (reader, outputStream) -> {
             try {
-                Map<String, Object> requestData = apiController.parseRequestBody(reader); // Use instance method
+                Map<String, Object> requestData = apiController.parseRequestBody(reader);
+
+                // Check if we got any data
+                if (requestData.isEmpty()) {
+                    apiController.sendJsonResponse(outputStream, Map.of("error", "No request body provided"), 400);
+                    return;
+                }
+
                 String title = (String) requestData.get("title");
                 String status = (String) requestData.get("status");
-                Date dueDate = Date.valueOf((String) requestData.get("dueDate"));
+                String dueDateStr = (String) requestData.get("dueDate");
 
+                // Validate required fields
+                if (title == null || status == null || dueDateStr == null) {
+                    apiController.sendJsonResponse(outputStream, Map.of("error", "Missing required fields"), 400);
+                    return;
+                }
+
+                Date dueDate = Date.valueOf(dueDateStr);
                 Task task = new Task(title, status, dueDate);
                 task.createTask();
-                Task.readTasks(outputStream); // Returning updated list
+                System.out.println(task.toString());
+                Task.readTasks(outputStream);
             } catch (Exception e) {
-                System.out.println(e.toString());
+                System.out.println("Error processing request: " + e.toString());
                 try {
-                    apiController.sendJsonResponse(outputStream, Map.of("error", "Invalid request data"), 400);
+                    apiController.sendJsonResponse(outputStream, Map.of("error", "Invalid request data: " + e.getMessage()), 400);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
             }
         });
-
 
 
 

@@ -43,21 +43,61 @@ public class ApiController {
         outputStream.flush();
     }
 
+
     public Map<String, Object> parseRequestBody(BufferedReader reader) throws IOException {
-        StringBuilder requestBody = new StringBuilder();
+        StringBuilder headerBuilder = new StringBuilder();
         String line;
+        int contentLength = -1;
 
-        // Skip HTTP headers until an empty line is found
+        // Read and store headers
         while ((line = reader.readLine()) != null && !line.isEmpty()) {
-            // Skip headers
+            headerBuilder.append(line).append("\n");
+            if (line.toLowerCase().startsWith("content-length:")) {
+                contentLength = Integer.parseInt(line.substring(15).trim());
+            }
         }
 
-        // Read the actual JSON body after headers
-        while ((line = reader.readLine()) != null) {
-            requestBody.append(line);
+        // Debug print headers
+        System.out.println("Headers received:");
+        System.out.println(headerBuilder.toString());
+        System.out.println("Content-Length: " + contentLength);
+
+        // If no content length or it's 0, return empty map
+        if (contentLength <= 0) {
+            System.out.println("No content length specified or content length is 0");
+            return new HashMap<>();
         }
 
-        return objectMapper.readValue(requestBody.toString(), Map.class);
+        // Read the body
+        char[] charBuffer = new char[contentLength];
+        int totalCharsRead = 0;
+        while (totalCharsRead < contentLength) {
+            int charsRead = reader.read(charBuffer, totalCharsRead, contentLength - totalCharsRead);
+            if (charsRead == -1) {
+                break;
+            }
+            totalCharsRead += charsRead;
+        }
+
+        String requestBody = new String(charBuffer, 0, totalCharsRead);
+
+        // Debug print body
+        System.out.println("Body received:");
+        System.out.println(requestBody);
+
+        // If body is empty, return empty map
+        if (requestBody.trim().isEmpty()) {
+            System.out.println("Empty request body");
+            return new HashMap<>();
+        }
+
+        try {
+            return objectMapper.readValue(requestBody, Map.class);
+        } catch (Exception e) {
+            System.out.println("Error parsing JSON: " + e.getMessage());
+            System.out.println("Received body: '" + requestBody + "'");
+            throw e;
+        }
     }
 
 }
