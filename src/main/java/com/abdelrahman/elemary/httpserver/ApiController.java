@@ -42,4 +42,22 @@ public class ApiController {
         outputStream.write(jsonResponse.getBytes());
         outputStream.flush();
     }
+
+    public Map<String, Object> parseRequestBody(BufferedReader reader) throws IOException {
+        StringBuilder requestBody = new StringBuilder();
+        String line;
+
+        // Skip HTTP headers until an empty line is found
+        while ((line = reader.readLine()) != null && !line.isEmpty()) {
+            // Skip headers
+        }
+
+        // Read the actual JSON body after headers
+        while ((line = reader.readLine()) != null) {
+            requestBody.append(line);
+        }
+
+        return objectMapper.readValue(requestBody.toString(), Map.class);
+    }
+
 }

@@ -2,11 +2,16 @@ package com.abdelrahman.elemary.httpserver;
 
 import com.abdelrahman.elemary.httpserver.config.Configuration;
 import com.abdelrahman.elemary.httpserver.config.ConfigurationManager;
+import com.abdelrahman.elemary.httpserver.util.PostgresJDBCConnector;
+import com.abdelrahman.elemary.httpserver.util.Task;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,15 +26,35 @@ public class HttpServer {
         Configuration conf = ConfigurationManager.getInstance().getCurrentConfiguration();
 
         ApiController apiController = new ApiController(); // Initialize ApiController
-        apiController.registerRoute("GET", "/api/hello", (reader, outputStream) -> {
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Hello, World!");
+        // Get all tasks
+        apiController.registerRoute("GET", "/api/tasks", (reader, outputStream) -> {
+            Task.readTasks(outputStream);
+        });
+        // Create a new task
+        apiController.registerRoute("POST", "/api/tasks", (reader, outputStream) -> {
             try {
-                apiController.sendJsonResponse(outputStream,response,200);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+                Map<String, Object> requestData = apiController.parseRequestBody(reader); // Use instance method
+                String title = (String) requestData.get("title");
+                String status = (String) requestData.get("status");
+                Date dueDate = Date.valueOf((String) requestData.get("dueDate"));
+
+                Task task = new Task(title, status, dueDate);
+                task.createTask();
+                Task.readTasks(outputStream); // Returning updated list
+            } catch (Exception e) {
+                System.out.println(e.toString());
+                try {
+                    apiController.sendJsonResponse(outputStream, Map.of("error", "Invalid request data"), 400);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
+
+
+
+
+
         try (ServerSocket serverSocket = new ServerSocket(conf.getPort())) {
             System.out.println("Listening on port " + conf.getPort());
 
