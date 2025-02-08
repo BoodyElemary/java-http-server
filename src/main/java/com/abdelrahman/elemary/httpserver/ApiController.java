@@ -30,8 +30,11 @@ public class ApiController {
     public void sendJsonResponse(OutputStream outputStream, Map<String, String> data, int statusCode) throws IOException {
         String jsonResponse = objectMapper.writeValueAsString(data);
         final String CRLF = "\r\n";
-        String responseHeader = "HTTP/1.1 " + statusCode + " " + (statusCode == 200 ? "OK" : "Error") + CRLF +
+        String responseHeader = "HTTP/1.1 " + statusCode + (statusCode == 200 ? " OK" : " Error") + CRLF +
                 "Content-Type: application/json" + CRLF +
+                "Access-Control-Allow-Origin: *" + CRLF + // Allow requests from any origin
+                "Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS" + CRLF + // Allowed methods
+                "Access-Control-Allow-Headers: Content-Type" + CRLF + // Allowed headers
                 "Content-Length: " + jsonResponse.getBytes().length + CRLF +
                 CRLF;
 

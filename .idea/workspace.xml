@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9a46c6ea-79d8-41d4-abcf-76e3e68a9a72" name="Changes" comment="Fix: adding correct mimes types for serving spas">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/webroot/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/webroot/404.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/webroot/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/webroot/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/webroot/newPage.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/ApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/ApiController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
