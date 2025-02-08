@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a46c6ea-79d8-41d4-abcf-76e3e68a9a72" name="Changes" comment="FEAT : adding Delete end point">
+    <list default="true" id="9a46c6ea-79d8-41d4-abcf-76e3e68a9a72" name="Changes" comment="FIX : adding OPTIONS for Preflight requests">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/ApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/ApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/HttpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/HttpServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/util/Json.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/ResponseBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/config/Configuration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/config/Configuration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/config/ConfigurationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/config/ConfigurationManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/util/PostgresJDBCConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/util/PostgresJDBCConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/http.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/http.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +174,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739016318933</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="FIX : adding OPTIONS for Preflight requests">
+      <option name="closed" value="true" />
+      <created>1739019792992</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1739019792992</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -183,7 +194,8 @@
     <MESSAGE value="Fix: creating post request" />
     <MESSAGE value="Fix: Body Parsing" />
     <MESSAGE value="FEAT : adding Delete end point" />
-    <option name="LAST_COMMIT_MESSAGE" value="FEAT : adding Delete end point" />
+    <MESSAGE value="FIX : adding OPTIONS for Preflight requests" />
+    <option name="LAST_COMMIT_MESSAGE" value="FIX : adding OPTIONS for Preflight requests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

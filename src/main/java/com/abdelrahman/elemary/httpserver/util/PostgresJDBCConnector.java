@@ -1,5 +1,8 @@
 package com.abdelrahman.elemary.httpserver.util;
 
+import com.abdelrahman.elemary.httpserver.config.Configuration;
+import com.abdelrahman.elemary.httpserver.config.ConfigurationManager;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,9 +11,10 @@ import java.sql.SQLException;
 
 public class PostgresJDBCConnector {
     private static PostgresJDBCConnector instance;
-    private final String url = "jdbc:postgresql://localhost:5432/Todo";
-    private final String user = "postgres";
-    private final String password = "password";
+    Configuration conf = ConfigurationManager.getInstance().getCurrentConfiguration();
+    private final String url = conf.getDbUrl();
+    private final String user = conf.getDbUserName();
+    private final String password = conf.getDbPassword();
 
     private PostgresJDBCConnector() {
         // No need to initialize url, user, password here as they are already set

@@ -30,7 +30,9 @@ public class ConfigurationManager {
             // Add your property mappings here
              myCurrentConfiguration.setPort(Integer.parseInt(prop.getProperty("port")));
              myCurrentConfiguration.setWebroot(prop.getProperty("webroot"));
-
+             myCurrentConfiguration.setDbUrl(prop.getProperty("db_url"));
+             myCurrentConfiguration.setDbUserName(prop.getProperty("db_username"));
+             myCurrentConfiguration.setDbPassword(prop.getProperty("db_password"));
         } catch (IOException e) {
             throw new HttpConfigurationException(e);
         }
