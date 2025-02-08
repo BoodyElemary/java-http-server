@@ -66,6 +66,73 @@ public class HttpServer {
             }
         });
 
+        apiController.registerRoute("GET", "/api/tasks/", (reader, outputStream) -> {
+            try {
+                String param = ApiController.getUrlParameter();
+                int taskId = Integer.parseInt(param);
+              Task.readTaskById(outputStream, taskId);
+            } catch (NumberFormatException e) {
+                try {
+                    apiController.sendJsonResponse(outputStream, Map.of("error", "Not found"), 400);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+            }
+        });
+
+        apiController.registerRoute("PUT","/api/tasks/",((reader, outputStream) -> {
+            try {
+                String param=ApiController.getUrlParameter();
+                int taskId= Integer.parseInt(param);
+                Map<String, Object> requestData = apiController.parseRequestBody(reader);
+
+                // Check if we got any data
+                if (requestData.isEmpty()) {
+                    apiController.sendJsonResponse(outputStream, Map.of("error", "No request body provided"), 400);
+                    return;
+                }
+
+                String title = (String) requestData.get("title");
+                String status = (String) requestData.get("status");
+                String dueDateStr = (String) requestData.get("dueDate");
+                Date dueDate = Date.valueOf(dueDateStr);
+                Task task = new Task(taskId,title, status, dueDate);
+                task.updateTask();
+                Task.readTaskById(outputStream, taskId);
+            } catch (NumberFormatException | IOException e) {
+                try {
+                    apiController.sendJsonResponse(outputStream, Map.of("error", "Not found"), 400);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        }));
+
+
+
+        apiController.registerRoute("DELETE","/api/tasks/",((reader, outputStream) -> {
+            try {
+                String param=ApiController.getUrlParameter();
+                int taskId= Integer.parseInt(param);
+
+
+                Task.deleteTask(taskId);
+                apiController.sendJsonResponse(outputStream, Map.of("success", "Deleted"), 200);
+
+            } catch (NumberFormatException | IOException e) {
+                try {
+                    apiController.sendJsonResponse(outputStream, Map.of("error", "Not found"), 400);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        }));
+
+
+
+
+
 
 
 

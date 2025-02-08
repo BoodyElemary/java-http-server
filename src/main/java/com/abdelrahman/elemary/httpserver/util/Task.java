@@ -35,6 +35,9 @@ public class Task {
     public int getId() {
         return id;
     }
+    public void setId(int id) {
+       this.id=id;
+    }
 
     public String getTitle() {
         return title;
@@ -97,10 +100,44 @@ public class Task {
             }
         }
     }
+    public static void readTaskById(OutputStream outputStream, int taskId) {
+        String query = "SELECT * FROM tasks WHERE id = ?";
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, String> response = new HashMap<>();
+
+        try (Connection conn = PostgresJDBCConnector.getInstance().connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setInt(1, taskId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    Map<String, Object> taskMap = new HashMap<>();
+                    taskMap.put("id", rs.getInt("id"));
+                    taskMap.put("title", rs.getString("title"));
+                    taskMap.put("status", rs.getString("status"));
+                    taskMap.put("dueDate", rs.getDate("due_date"));
+
+                    response.put("task", objectMapper.writeValueAsString(taskMap));
+                    sendJsonResponse(outputStream, response, 200);
+                } else {
+                    response.put("error", "Task not found with ID: " + taskId);
+                    sendJsonResponse(outputStream, response, 404);
+                }
+            }
+        } catch (SQLException | IOException e) {
+            response.put("error", "Failed to retrieve task: " + e.getMessage());
+            try {
+                sendJsonResponse(outputStream, response, 500);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+    }
 
     // Update
     public void updateTask() {
-        String query = "UPDATE tasks SET title = ?, status = ?, due_date = ? WHERE id = ?";
+        String query = "UPDATE tasks SET title = ?, status = CAST(? AS task_status), due_date = ? WHERE id = ?";
         try (Connection conn = PostgresJDBCConnector.getInstance().connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
@@ -117,7 +154,7 @@ public class Task {
     }
 
     // Delete
-    public void deleteTask() {
+    public static void deleteTask(int id) {
         String query = "DELETE FROM tasks WHERE id = ?";
         try (Connection conn = PostgresJDBCConnector.getInstance().connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {

@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a46c6ea-79d8-41d4-abcf-76e3e68a9a72" name="Changes" comment="Fix: creating post request">
+    <list default="true" id="9a46c6ea-79d8-41d4-abcf-76e3e68a9a72" name="Changes" comment="Fix: Body Parsing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/ApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/ApiController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/HttpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/HttpServer.java" afterDir="false" />
@@ -155,7 +155,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738982103638</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Fix: Body Parsing">
+      <option name="closed" value="true" />
+      <created>1739007543965</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1739007543965</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -165,6 +173,27 @@
     <MESSAGE value="Fix: adding correct mimes types for serving spas" />
     <MESSAGE value="Fix: addressing the cors policy" />
     <MESSAGE value="Fix: creating post request" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix: creating post request" />
+    <MESSAGE value="Fix: Body Parsing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix: Body Parsing" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/HttpServer.java</url>
+          <line>22</line>
+          <properties class="com.abdelrahman.elemary.httpserver.HttpServer" method="main">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/util/Task.java</url>
+          <line>72</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
