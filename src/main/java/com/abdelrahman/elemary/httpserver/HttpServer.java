@@ -66,20 +66,6 @@ public class HttpServer {
             }
         });
 
-        apiController.registerRoute("GET", "/api/tasks/", (reader, outputStream) -> {
-            try {
-                String param = ApiController.getUrlParameter();
-                int taskId = Integer.parseInt(param);
-              Task.readTaskById(outputStream, taskId);
-            } catch (NumberFormatException e) {
-                try {
-                    apiController.sendJsonResponse(outputStream, Map.of("error", "Not found"), 400);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-
-            }
-        });
 
         apiController.registerRoute("PUT","/api/tasks/",((reader, outputStream) -> {
             try {
@@ -130,6 +116,20 @@ public class HttpServer {
         }));
 
 
+        apiController.registerRoute("GET", "/api/tasks/", (reader, outputStream) -> {
+            try {
+                String param = ApiController.getUrlParameter();
+                int taskId = Integer.parseInt(param);
+                Task.readTaskById(outputStream, taskId);
+            } catch (NumberFormatException e) {
+                try {
+                    apiController.sendJsonResponse(outputStream, Map.of("error", "Not found"), 400);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+            }
+        });
 
 
 

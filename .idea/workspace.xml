@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a46c6ea-79d8-41d4-abcf-76e3e68a9a72" name="Changes" comment="Fix: Body Parsing">
+    <list default="true" id="9a46c6ea-79d8-41d4-abcf-76e3e68a9a72" name="Changes" comment="FEAT : adding Delete end point">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/ApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/ApiController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/HttpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/HttpServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/util/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/util/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/util/Json.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +163,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739007543965</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="FEAT : adding Delete end point">
+      <option name="closed" value="true" />
+      <created>1739016318933</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1739016318933</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -174,7 +182,8 @@
     <MESSAGE value="Fix: addressing the cors policy" />
     <MESSAGE value="Fix: creating post request" />
     <MESSAGE value="Fix: Body Parsing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix: Body Parsing" />
+    <MESSAGE value="FEAT : adding Delete end point" />
+    <option name="LAST_COMMIT_MESSAGE" value="FEAT : adding Delete end point" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -192,6 +201,16 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/util/Task.java</url>
           <line>72</line>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/HttpServer.java</url>
+          <line>69</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/abdelrahman/elemary/httpserver/ApiController.java</url>
+          <line>21</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

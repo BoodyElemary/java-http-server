@@ -8,11 +8,16 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
-import java.util.function.Function;
 
 public class ApiController {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final Map<String, Map<RouteInfo, BiConsumer<BufferedReader, OutputStream>>> routes = new HashMap<>();
+
+    // CORS configuration
+    private static final String ALLOWED_ORIGINS = "http://localhost:3000";
+    private static final String ALLOWED_METHODS = "GET, POST, PUT, DELETE, OPTIONS";
+    private static final String ALLOWED_HEADERS = "Content-Type, Authorization, X-Requested-With";
+    private static final String MAX_AGE = "3600";
 
     private static class RouteInfo {
         private final String path;
@@ -57,16 +62,20 @@ public class ApiController {
     }
 
     public void handleApiRequest(String method, String path, BufferedReader reader, OutputStream outputStream) throws IOException {
+        // Handle OPTIONS preflight request
+        if ("OPTIONS".equalsIgnoreCase(method)) {
+            handleOptionsRequest(outputStream);
+            return;
+        }
+
         Map<RouteInfo, BiConsumer<BufferedReader, OutputStream>> methodRoutes = routes.get(method.toUpperCase());
 
         if (methodRoutes != null) {
             for (Map.Entry<RouteInfo, BiConsumer<BufferedReader, OutputStream>> entry : methodRoutes.entrySet()) {
                 RouteInfo routeInfo = entry.getKey();
                 if (routeInfo.matches(path)) {
-                    // Store the URL parameter in a thread-local variable
                     String param = routeInfo.extractParam(path);
                     CurrentRequest.setUrlParameter(param);
-
                     entry.getValue().accept(reader, outputStream);
                     return;
                 }
@@ -75,14 +84,28 @@ public class ApiController {
         sendJsonResponse(outputStream, Map.of("error", "Route not found"), 404);
     }
 
+    private void handleOptionsRequest(OutputStream outputStream) throws IOException {
+        String CRLF = "\r\n";
+        String response = "HTTP/1.1 200 OK" + CRLF +
+                "Access-Control-Allow-Origin: " + ALLOWED_ORIGINS + CRLF +
+                "Access-Control-Allow-Methods: " + ALLOWED_METHODS + CRLF +
+                "Access-Control-Allow-Headers: " + ALLOWED_HEADERS + CRLF +
+                "Access-Control-Max-Age: " + MAX_AGE + CRLF +
+                "Content-Length: 0" + CRLF +
+                CRLF;
+
+        outputStream.write(response.getBytes());
+        outputStream.flush();
+    }
+
     public void sendJsonResponse(OutputStream outputStream, Map<String, String> data, int statusCode) throws IOException {
         String jsonResponse = objectMapper.writeValueAsString(data);
         final String CRLF = "\r\n";
         String responseHeader = "HTTP/1.1 " + statusCode + (statusCode == 200 ? " OK" : " Error") + CRLF +
                 "Content-Type: application/json" + CRLF +
-                "Access-Control-Allow-Origin: *" + CRLF +
-                "Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS" + CRLF +
-                "Access-Control-Allow-Headers: Content-Type" + CRLF +
+                "Access-Control-Allow-Origin: " + ALLOWED_ORIGINS + CRLF +
+                "Access-Control-Allow-Methods: " + ALLOWED_METHODS + CRLF +
+                "Access-Control-Allow-Headers: " + ALLOWED_HEADERS + CRLF +
                 "Content-Length: " + jsonResponse.getBytes().length + CRLF +
                 CRLF;
 
@@ -96,7 +119,6 @@ public class ApiController {
         String line;
         int contentLength = -1;
 
-        // Read and store headers
         while ((line = reader.readLine()) != null && !line.isEmpty()) {
             headerBuilder.append(line).append("\n");
             if (line.toLowerCase().startsWith("content-length:")) {
@@ -104,18 +126,15 @@ public class ApiController {
             }
         }
 
-        // Debug print headers
         System.out.println("Headers received:");
         System.out.println(headerBuilder.toString());
         System.out.println("Content-Length: " + contentLength);
 
-        // If no content length or it's 0, return empty map
         if (contentLength <= 0) {
             System.out.println("No content length specified or content length is 0");
             return new HashMap<>();
         }
 
-        // Read the body
         char[] charBuffer = new char[contentLength];
         int totalCharsRead = 0;
         while (totalCharsRead < contentLength) {
@@ -128,11 +147,9 @@ public class ApiController {
 
         String requestBody = new String(charBuffer, 0, totalCharsRead);
 
-        // Debug print body
         System.out.println("Body received:");
         System.out.println(requestBody);
 
-        // If body is empty, return empty map
         if (requestBody.trim().isEmpty()) {
             System.out.println("Empty request body");
             return new HashMap<>();
@@ -147,7 +164,6 @@ public class ApiController {
         }
     }
 
-    // Helper class to store request-specific data
     public static class CurrentRequest {
         private static final ThreadLocal<String> urlParameter = new ThreadLocal<>();
 
@@ -164,7 +180,6 @@ public class ApiController {
         }
     }
 
-    // Helper method to get URL parameter
     public static String getUrlParameter() {
         return CurrentRequest.getUrlParameter();
     }
